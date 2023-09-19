@@ -1,7 +1,11 @@
 // container -> grid
 
-function createGrid(){
-    const gridDiv = document.querySelector('.grid');
+function createGrid(grid=16){
+    const container = document.querySelector('.container');
+    const gridDiv = document.createElement('div');
+    gridDiv.classList.add('grid');
+    container.appendChild(gridDiv);
+
     for (let i = 0; i < grid; i++){
         let rowDiv = document.createElement('div');
         rowDiv.classList.add('grid-row');
@@ -17,5 +21,26 @@ function createGrid(){
     }
 }
 
-let grid = 100;
+function newGrid(newSize){
+    const grid = document.querySelector('.grid');
+    grid.remove();
+    createGrid(newSize);
+}
+
+function clamp(value, min, max){
+    return Math.min(Math.max(value, min), max);
+}
+
+const button = document.querySelector('.new-grid-btn');
+button.addEventListener('click', (e) => {
+    let gridSize = parseInt(window.prompt("Enter a grid size (1-100): "));
+    if(Number.isInteger(gridSize)) {
+        gridSize = clamp(gridSize, 1, 100);
+        newGrid(gridSize)
+    }
+    else{
+        alert("Invalid input! Try again.")
+    }
+});
+
 createGrid();
