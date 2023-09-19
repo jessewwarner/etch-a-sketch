@@ -43,4 +43,5 @@ button.addEventListener('click', (e) => {
     }
 });
 
+// Create the starting grid of 16x16
 createGrid();
