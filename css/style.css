@@ -1,0 +1,22 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: bisque;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.new-grid-btn {
+    background-color: rgb(141, 96, 41);
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: wheat;
+    border-radius: 10px;
+    margin: 10px;
+}
