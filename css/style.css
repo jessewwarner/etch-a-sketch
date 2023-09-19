@@ -23,7 +23,19 @@ body {
 
 .grid {
     display: flex;
+    flex-direction: column;
     border: 2px solid red;
     width: 800px;
     height: 800px;
+}
+
+.grid-row {
+    display: flex;
+    flex: 1;
+}
+
+.grid-square {
+    flex: 1;
+    box-sizing: border-box;
+    border: 1px solid black;
 }
