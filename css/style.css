@@ -1,7 +1,6 @@
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
 }
 
 body {
@@ -9,6 +8,7 @@ body {
     text-align: center;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .new-grid-btn {
@@ -19,4 +19,11 @@ body {
     color: wheat;
     border-radius: 10px;
     margin: 10px;
+}
+
+.grid {
+    display: flex;
+    border: 2px solid red;
+    width: 800px;
+    height: 800px;
 }
