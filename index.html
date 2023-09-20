@@ -7,9 +7,30 @@
     <title>Etch-A-Sketch</title>
 </head>
 <body>
+    <h1>Welcome to Etch-A-Sketch!</h1>
     <div class="container">
-        <h1>Welcome to Etch-A-Sketch!</h1>
-        <button class="new-grid-btn">Create New Grid</button>
+        <div class="controls">
+            <input type="range" class="slider" min="10" max="100" value="16">
+            <div class="slider-text">
+                Grid Size: <span class="slider-value">16</span>
+            </div>
+            <hr>
+            <button class="clear-btn btn">Clear Drawing</button>
+            <div class="alpha-container">
+                Fill Type: 
+                <input type="radio" name="colorAlpha" value="Solid" id="solid-color" checked>
+                <label for="solid-color">Solid</label>
+                <input type="radio" name="colorAlpha" value="shader" id="shader-color">
+                <label for="shader-color">Shader</label>
+            </div>
+            <hr>
+            <div class="color-container">
+                <label for="color-picker">Color: </label>
+                <input type="color" id="color-picker" value="#0000ff">
+                <label for="rainbow-mode">Rainbow Mode: </label>
+                <input type="checkbox" id="rainbow-mode">
+            </div>
+        </div>
     </div>
     <script src="js/script.js"></script>
 </body>
