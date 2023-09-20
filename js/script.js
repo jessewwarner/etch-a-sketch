@@ -6,6 +6,8 @@ const solidRadio = document.querySelector('#solid-color');
 const shaderRadio = document.querySelector('#shader-color');
 const clearButton = document.querySelector('.clear-btn')
 
+let isMouseDown = false;
+
 function createGrid(grid=16){
     const container = document.querySelector('.container');
     const gridDiv = document.createElement('div');
@@ -19,7 +21,7 @@ function createGrid(grid=16){
             let div = document.createElement('div');
             div.classList.add('grid-square');
             div.addEventListener('mouseover', (e) => {
-                e.target.style.background = 'black';
+                e.target.style.background = colorPicker.value;
             });
             rowDiv.appendChild(div);
         }
@@ -42,6 +44,18 @@ function clamp(value, min, max){
 slider.addEventListener('input', (e) => {
     const sliderValue = document.querySelector('.slider-value');
     sliderValue.textContent = slider.value;
+    newGrid();
+});
+
+document.addEventListener('mousedown', (e) => {
+    isMouseDown = true;
+});
+
+document.addEventListener('mouseup', (e) => {
+    isMouseDown = false;
+});
+
+clearButton.addEventListener('click', (e) => {
     newGrid();
 });
 
