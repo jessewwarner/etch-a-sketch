@@ -1,4 +1,5 @@
 // container -> grid
+const slider = document.querySelector('.slider');
 
 function createGrid(grid=16){
     const container = document.querySelector('.container');
@@ -21,26 +22,22 @@ function createGrid(grid=16){
     }
 }
 
-function newGrid(newSize){
+function newGrid(){
     const grid = document.querySelector('.grid');
+    let gridSize = parseInt(slider.value);
+    gridSize = clamp(gridSize, 1, 100);
     grid.remove();
-    createGrid(newSize);
+    createGrid(gridSize);
 }
 
 function clamp(value, min, max){
     return Math.min(Math.max(value, min), max);
 }
 
-const button = document.querySelector('.new-grid-btn');
-button.addEventListener('click', (e) => {
-    let gridSize = parseInt(window.prompt("Enter a grid size (1-100): "));
-    if(Number.isInteger(gridSize)) {
-        gridSize = clamp(gridSize, 1, 100);
-        newGrid(gridSize)
-    }
-    else{
-        alert("Invalid input! Try again.")
-    }
+slider.addEventListener('input', (e) => {
+    const sliderValue = document.querySelector('.slider-value');
+    sliderValue.textContent = slider.value;
+    newGrid();
 });
 
 // Create the starting grid of 16x16
