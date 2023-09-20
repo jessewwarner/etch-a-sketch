@@ -10,21 +10,16 @@
     <h1>Welcome to Pixel Painter!</h1>
     <div class="container">
         <div class="controls">
-            <input type="range" class="slider" min="10" max="100" value="16">
+            <input type="range" class="size-slider" min="10" max="100" value="16">
             <div class="slider-text">
-                Grid Size: <span class="slider-value">16</span>
+                Grid Size: <span class="size-value">16</span>
             </div>
             <hr>
             <div class="alpha-container">
-                <h3>Fill Options</h3>
-                <div>
-                    <input type="radio" name="colorAlpha" value="Solid" id="solid-color" checked>
-                    <label for="solid-color">Solid</label>
-                </div>
-                <div>
-                    <input type="radio" name="colorAlpha" value="shader" id="shader-color">
-                    <label for="shader-color">Shader</label>
-                </div>
+                <input type="range" class="opacity-slider" min="1" max="100" value="100">
+                <div class="slider-text">
+                Opacity: <span class="opacity-value">100</span>%
+            </div>
             </div>
             <hr>
             <div class="color-container">
