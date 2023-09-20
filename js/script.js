@@ -6,7 +6,32 @@ const solidRadio = document.querySelector('#solid-color');
 const shaderRadio = document.querySelector('#shader-color');
 const clearButton = document.querySelector('.clear-btn')
 
-let isMouseDown = false;
+function clamp(value, min, max){
+    return Math.min(Math.max(value, min), max);
+}
+
+function getRandomColor() {
+    const r = Math.floor(Math.random() * 256);    
+    const g = Math.floor(Math.random() * 256);    
+    const b = Math.floor(Math.random() * 256);   
+    return `rgba(${r}, ${g}, ${b}, ${1.0})`;
+}
+
+function addAlphaToColor(red=0, green=0, blue=0, alpha=0, alphaDelta=0.1){
+    alpha += alphaDelta;
+    alpha = clamp(alpha, 0, 1);
+    return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+}
+
+function colorSquare(element) {
+    let newColor = rainbowMode.checked ? getRandomColor() : colorPicker.value;
+
+    if (shaderRadio.checked){
+        let currentColor = window.getComputedStyle(element).backgroundColor;
+        newColor = 'black';
+    }
+    element.style.background = newColor;
+}
 
 function createGrid(grid=16){
     const container = document.querySelector('.container');
@@ -21,7 +46,7 @@ function createGrid(grid=16){
             let div = document.createElement('div');
             div.classList.add('grid-square');
             div.addEventListener('mouseover', (e) => {
-                e.target.style.background = colorPicker.value;
+                colorSquare(e.target);
             });
             rowDiv.appendChild(div);
         }
@@ -37,22 +62,10 @@ function newGrid(){
     createGrid(gridSize);
 }
 
-function clamp(value, min, max){
-    return Math.min(Math.max(value, min), max);
-}
-
 slider.addEventListener('input', (e) => {
     const sliderValue = document.querySelector('.slider-value');
     sliderValue.textContent = slider.value;
     newGrid();
-});
-
-document.addEventListener('mousedown', (e) => {
-    isMouseDown = true;
-});
-
-document.addEventListener('mouseup', (e) => {
-    isMouseDown = false;
 });
 
 clearButton.addEventListener('click', (e) => {
