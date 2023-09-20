@@ -6,19 +6,38 @@
 body {
     background-color: bisque;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-.new-grid-btn {
+.container {
+    display: flex;
+    flex: 0;
+    justify-content: center;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn {
     background-color: rgb(141, 96, 41);
     padding: 10px 20px;
     font-size: 20px;
     font-weight: 600;
+    height: 60px;
     color: wheat;
     border-radius: 10px;
     margin: 10px;
+}
+
+.slider {
+    width: 80%;
+    align-self: center;
+}
+
+.slider-text {
+    font-size: 20px;
 }
 
 .grid {
