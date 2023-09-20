@@ -1,5 +1,10 @@
 // container -> grid
 const slider = document.querySelector('.slider');
+const colorPicker = document.querySelector('#color-picker');
+const rainbowMode = document.querySelector('#rainbow-mode');
+const solidRadio = document.querySelector('#solid-color');
+const shaderRadio = document.querySelector('#shader-color');
+const clearButton = document.querySelector('.clear-btn')
 
 function createGrid(grid=16){
     const container = document.querySelector('.container');
