@@ -1,5 +1,6 @@
 // container -> grid
-const slider = document.querySelector('.slider');
+const sizeSlider = document.querySelector('.size-slider');
+const opacitySlider = document.querySelector('.opacity-slider');
 const colorPicker = document.querySelector('#color-picker');
 const rainbowMode = document.querySelector('#rainbow-mode');
 const solidRadio = document.querySelector('#solid-color');
@@ -8,6 +9,11 @@ const clearButton = document.querySelector('.clear-btn')
 
 function clamp(value, min, max){
     return Math.min(Math.max(value, min), max);
+}
+
+function valuesToRGBA (values){
+    return `rgba(${values.red}, ${values.green}, 
+        ${values.blue}, ${values.alpha})`
 }
 
 function parseRGBA (colorValue){
@@ -40,28 +46,22 @@ function getRandomColor() {
     return {red: r, green: g, blue: b, alpha: a};;
 }
 
-function addAlphaToColor(currentColor, alphaDelta=0.1){
-    let currentColorValues = parseRGBA(currentColor);
-    alpha = currentColorValues.alpha + alphaDelta;
-    alpha = clamp(alpha, 0, 1);
-    return `rgba(${currentColorValues.red}, ${currentColorValues.green}, 
-        ${currentColorValues.blue}, ${alpha})`;
+function addAlphaToColor(currentColorValues, alphaDelta=0.1){
+    currentColorValues.alpha = currentColorValues.alpha + alphaDelta;
+    currentColorValues.alpha = clamp(currentColorValues.alpha, 0, 1);
+    return valuesToRGBA(currentColorValues);
 }
 
 function colorSquare(element) {
     const colorValues = rainbowMode.checked ? getRandomColor() : hexToRGBA(colorPicker.value);
+    const alpha = parseInt(opacitySlider.value) / 100;
     let newColor;
-    if (shaderRadio.checked){
+    if (alpha < 1){
         const currentColor = window.getComputedStyle(element).backgroundColor;
-        if (currentColor === 'rgba(0, 0, 0, 0)'){
-            newColor = `rgba(${colorValues.red}, ${colorValues.green}, 
-                ${colorValues.blue}, ${0.1})`
-        } else {
-            newColor = addAlphaToColor(currentColor);
-        }
+        colorValues.alpha = parseRGBA(currentColor).alpha;
+        newColor = addAlphaToColor(colorValues, alpha);
     } else {
-        newColor = `rgba(${colorValues.red}, ${colorValues.green}, 
-            ${colorValues.blue}, ${colorValues.alpha})`;
+        newColor = valuesToRGBA(colorValues)
     }
     element.style.background = newColor;
 }
@@ -89,16 +89,21 @@ function createGrid(grid=16){
 
 function newGrid(){
     const grid = document.querySelector('.grid');
-    let gridSize = parseInt(slider.value);
+    let gridSize = parseInt(sizeSlider.value);
     gridSize = clamp(gridSize, 1, 100);
     grid.remove();
     createGrid(gridSize);
 }
 
-slider.addEventListener('input', (e) => {
-    const sliderValue = document.querySelector('.slider-value');
-    sliderValue.textContent = slider.value;
+sizeSlider.addEventListener('input', (e) => {
+    const sizeValue = document.querySelector('.size-value');
+    sizeValue.textContent = sizeSlider.value;
     newGrid();
+});
+
+opacitySlider.addEventListener('input', (e) => {
+    const opacityValue = document.querySelector('.opacity-value');
+    opacityValue.textContent = opacitySlider.value;
 });
 
 clearButton.addEventListener('click', (e) => {
