@@ -58,7 +58,7 @@ function colorSquare(element) {
     const alpha = parseInt(opacitySlider.value) / 100;
     let colorValues;
     let newColor;
-    
+
     if (normalMode.checked){
         colorValues = hexToRGBA(colorPicker.value);
     } else if (rainbowMode.checked) {
@@ -110,12 +110,22 @@ function newGrid(){
 sizeSlider.addEventListener('input', (e) => {
     const sizeValue = document.querySelector('.size-value');
     sizeValue.textContent = sizeSlider.value;
+});
+
+sizeSlider.addEventListener('mouseup', (e) => {
+    const sizeValue = document.querySelector('.size-value');
+    sizeValue.textContent = sizeSlider.value;
     newGrid();
+    e.target.blur();
 });
 
 opacitySlider.addEventListener('input', (e) => {
     const opacityValue = document.querySelector('.opacity-value');
     opacityValue.textContent = opacitySlider.value;
+});
+
+opacitySlider.addEventListener('mouseup', (e) => {
+    e.target.blur();
 });
 
 clearButton.addEventListener('click', (e) => {
