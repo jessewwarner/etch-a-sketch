@@ -2,7 +2,9 @@
 const sizeSlider = document.querySelector('.size-slider');
 const opacitySlider = document.querySelector('.opacity-slider');
 const colorPicker = document.querySelector('#color-picker');
+const normalMode = document.querySelector('#normal-mode');
 const rainbowMode = document.querySelector('#rainbow-mode');
+const eraseMode = document.querySelector('#erase-mode');
 const solidRadio = document.querySelector('#solid-color');
 const shaderRadio = document.querySelector('#shader-color');
 const clearButton = document.querySelector('.clear-btn')
@@ -53,7 +55,15 @@ function addAlphaToColor(currentColorValues, alphaDelta=0.1){
 }
 
 function colorSquare(element) {
-    const colorValues = rainbowMode.checked ? getRandomColor() : hexToRGBA(colorPicker.value);
+    let colorValues;
+    if (normalMode.checked){
+        colorValues = hexToRGBA(colorPicker.value);
+    } else if (rainbowMode.checked) {
+        colorValues = getRandomColor();
+    } else {
+        element.style.background = null;
+        return;
+    }
     const alpha = parseInt(opacitySlider.value) / 100;
     let newColor;
     if (alpha < 1){
