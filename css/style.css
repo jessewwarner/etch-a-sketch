@@ -13,8 +13,10 @@ body {
     justify-content: center;
 }
 
+.size-container,
 .alpha-container,
-.color-container {
+.color-container,
+.grid-line-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -29,15 +31,17 @@ h3 {
     display: flex;
     flex: 0;
     width: 160px;
+    background-color: aqua;
     flex-direction: column;
     justify-content: flex-start;
     padding: 10px;
+    border: 2px solid rgb(42, 0, 110);
 }
 
 .clear-btn {
     background-color: rgb(141, 96, 41);
     padding: 10px 20px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     height: 60px;
     color: wheat;
@@ -61,6 +65,7 @@ h3 {
     border: 2px solid red;
     width: 800px;
     height: 800px;
+    border: 2px solid rgb(42, 0, 110);
 }
 
 .grid-row {
@@ -73,4 +78,9 @@ h3 {
     box-sizing: border-box;
     transition: all;
     transition-duration: 0.4s;
+}
+
+.grid-lines {
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
 }

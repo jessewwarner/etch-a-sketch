@@ -10,9 +10,11 @@
     <h1>Welcome to Pixel Painter!</h1>
     <div class="container">
         <div class="controls">
-            <input type="range" class="size-slider" min="10" max="100" value="16">
-            <div class="slider-text">
-                Grid Size: <span class="size-value">16</span>
+            <div class="size-container">
+                <input type="range" class="size-slider" min="10" max="100" value="16">
+                <div class="slider-text">
+                    Grid Size: <span class="size-value">16</span>
+                </div>
             </div>
             <hr>
             <div class="alpha-container">
@@ -39,6 +41,14 @@
                 <div>
                     <label for="erase-mode">Erase Mode: </label>
                     <input type="radio" name="color-mode" id="erase-mode">
+                </div>
+            </div>
+            <hr>
+            <div class="grid-line-container">
+                <h3>Grid Lines</h3>
+                <div>
+                    <label for="grid-line-toggle">Grid Lines: </label>
+                    <input type="checkbox" id="grid-line-toggle">
                 </div>
             </div>
             <hr>

@@ -7,7 +7,8 @@ const rainbowMode = document.querySelector('#rainbow-mode');
 const eraseMode = document.querySelector('#erase-mode');
 const solidRadio = document.querySelector('#solid-color');
 const shaderRadio = document.querySelector('#shader-color');
-const clearButton = document.querySelector('.clear-btn')
+const clearButton = document.querySelector('.clear-btn');
+const gridLineBox = document.querySelector('#grid-line-toggle');
 
 function clamp(value, min, max){
     return Math.min(Math.max(value, min), max);
@@ -107,6 +108,19 @@ function newGrid(){
     createGrid(gridSize);
 }
 
+function toggleGridLines(){
+    const squares = document.querySelectorAll('.grid-square');
+    if (gridLineBox.checked) {
+        squares.forEach((square) => {
+            square.classList.add('grid-lines');
+        });
+    } else {
+        squares.forEach((square) => {
+            square.classList.remove('grid-lines');
+        });
+    }
+}
+
 sizeSlider.addEventListener('input', (e) => {
     const sizeValue = document.querySelector('.size-value');
     sizeValue.textContent = sizeSlider.value;
@@ -117,6 +131,7 @@ sizeSlider.addEventListener('mouseup', (e) => {
     sizeValue.textContent = sizeSlider.value;
     newGrid();
     e.target.blur();
+    toggleGridLines();
 });
 
 opacitySlider.addEventListener('input', (e) => {
@@ -126,6 +141,10 @@ opacitySlider.addEventListener('input', (e) => {
 
 opacitySlider.addEventListener('mouseup', (e) => {
     e.target.blur();
+});
+
+gridLineBox.addEventListener('change', (e) => {
+    toggleGridLines();
 });
 
 clearButton.addEventListener('click', (e) => {
