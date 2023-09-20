@@ -10,25 +10,58 @@ function clamp(value, min, max){
     return Math.min(Math.max(value, min), max);
 }
 
+function parseRGBA (colorValue){
+    const rgbaMatch = colorValue.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
+    if (rgbaMatch) {
+        const r = parseInt(rgbaMatch[1]);
+        const g = parseInt(rgbaMatch[2]);
+        const b = parseInt(rgbaMatch[3]);
+        const a = rgbaMatch[4] !== undefined ? parseFloat(rgbaMatch[4]) : 1.0;
+        return { red: r, green: g, blue: b, alpha: a };
+    } else {
+        return null;
+    }
+}
+
+function hexToRGBA (hexValue) {
+    const r = parseInt(hexValue.substring(1, 3), 16);
+    const g = parseInt(hexValue.substring(3, 5), 16);
+    const b = parseInt(hexValue.substring(5, 7), 16);
+    const a = 1.0;
+
+    return {red: r, green: g, blue: b, alpha: a};
+}
+
 function getRandomColor() {
     const r = Math.floor(Math.random() * 256);    
     const g = Math.floor(Math.random() * 256);    
     const b = Math.floor(Math.random() * 256);   
-    return `rgba(${r}, ${g}, ${b}, ${1.0})`;
+    const a = 1.0;
+    return {red: r, green: g, blue: b, alpha: a};;
 }
 
-function addAlphaToColor(red=0, green=0, blue=0, alpha=0, alphaDelta=0.1){
-    alpha += alphaDelta;
+function addAlphaToColor(currentColor, alphaDelta=0.1){
+    let currentColorValues = parseRGBA(currentColor);
+    alpha = currentColorValues.alpha + alphaDelta;
     alpha = clamp(alpha, 0, 1);
-    return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+    return `rgba(${currentColorValues.red}, ${currentColorValues.green}, 
+        ${currentColorValues.blue}, ${alpha})`;
 }
 
 function colorSquare(element) {
-    let newColor = rainbowMode.checked ? getRandomColor() : colorPicker.value;
-
+    const colorValues = rainbowMode.checked ? getRandomColor() : hexToRGBA(colorPicker.value);
+    let newColor;
     if (shaderRadio.checked){
-        let currentColor = window.getComputedStyle(element).backgroundColor;
-        newColor = 'black';
+        const currentColor = window.getComputedStyle(element).backgroundColor;
+        if (currentColor === 'rgba(0, 0, 0, 0)'){
+            newColor = `rgba(${colorValues.red}, ${colorValues.green}, 
+                ${colorValues.blue}, ${0.1})`
+        } else {
+            newColor = addAlphaToColor(currentColor);
+        }
+    } else {
+        newColor = `rgba(${colorValues.red}, ${colorValues.green}, 
+            ${colorValues.blue}, ${colorValues.alpha})`;
     }
     element.style.background = newColor;
 }
