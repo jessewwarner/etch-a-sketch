@@ -55,7 +55,10 @@ function addAlphaToColor(currentColorValues, alphaDelta=0.1){
 }
 
 function colorSquare(element) {
+    const alpha = parseInt(opacitySlider.value) / 100;
     let colorValues;
+    let newColor;
+    
     if (normalMode.checked){
         colorValues = hexToRGBA(colorPicker.value);
     } else if (rainbowMode.checked) {
@@ -64,8 +67,7 @@ function colorSquare(element) {
         element.style.background = null;
         return;
     }
-    const alpha = parseInt(opacitySlider.value) / 100;
-    let newColor;
+    
     if (alpha < 1){
         const currentColor = window.getComputedStyle(element).backgroundColor;
         colorValues.alpha = parseRGBA(currentColor).alpha;
