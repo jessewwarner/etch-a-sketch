@@ -1,14 +1,14 @@
 // container -> grid
+const container = document.querySelector('.container');
 const sizeSlider = document.querySelector('.size-slider');
 const opacitySlider = document.querySelector('.opacity-slider');
 const colorPicker = document.querySelector('#color-picker');
 const normalMode = document.querySelector('#normal-mode');
 const rainbowMode = document.querySelector('#rainbow-mode');
 const eraseMode = document.querySelector('#erase-mode');
-const solidRadio = document.querySelector('#solid-color');
-const shaderRadio = document.querySelector('#shader-color');
-const clearButton = document.querySelector('.clear-btn');
 const gridLineBox = document.querySelector('#grid-line-toggle');
+const clearButton = document.querySelector('.clear-btn');
+const saveButton = document.querySelector('.save-btn')
 
 function clamp(value, min, max){
     return Math.min(Math.max(value, min), max);
@@ -80,7 +80,6 @@ function colorSquare(element) {
 }
 
 function createGrid(grid=16){
-    const container = document.querySelector('.container');
     const gridDiv = document.createElement('div');
     gridDiv.classList.add('grid');
     container.appendChild(gridDiv);
@@ -121,6 +120,23 @@ function toggleGridLines(){
     }
 }
 
+function saveDrawing(){
+    const grid = document.querySelector('.grid');
+    if (!grid){
+        alert("Grid not found!");
+    } else {
+        html2canvas(grid).then((canvas) => {
+            const imageDataUrl = canvas.toDataURL('image/png');
+
+            const downloadLink = document.createElement('a');
+            downloadLink.href = imageDataUrl;
+            downloadLink.download = 'pp_drawing.png';
+    
+            downloadLink.click();
+        });
+    }
+}
+
 sizeSlider.addEventListener('input', (e) => {
     const sizeValue = document.querySelector('.size-value');
     sizeValue.textContent = sizeSlider.value;
@@ -149,6 +165,10 @@ gridLineBox.addEventListener('change', (e) => {
 
 clearButton.addEventListener('click', (e) => {
     newGrid();
+});
+
+saveButton.addEventListener('click', (e) => {
+    saveDrawing();
 });
 
 // Create the starting grid of 16x16
